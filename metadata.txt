@@ -1,0 +1,8 @@
+[general]
+name=GetFeats
+description=A semi-automation tool that creates an auto-updating table of feature attributes near a selected point. 
+version=0.1
+qgisMinimumVersion=3.0
+author=tetrakai1
+email=192363196+tetrakai1@users.noreply.github.com
+icon=img/icon.png
