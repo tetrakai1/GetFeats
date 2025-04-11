@@ -97,7 +97,12 @@ class GetFeatsPlugin:
         dup_flag      = self.chk.check_dup_layernames(self.dlg)
         dlg_lyrs_flag = self.chk.check_dialog_lyrs_exist(self.dlg)
         did_sel_flag  = self.qcp.did_select
-        if selected and active_flag and dup_flag and dlg_lyrs_flag and not did_sel_flag:
+        all_flags     = active_flag and dup_flag and dlg_lyrs_flag and not did_sel_flag
+
+        if not selected and all_flags:
+            self.dlg.clear_table(self.dlg.extract_outfields())
+
+        if selected and all_flags:
             TARGET_LYR_NAME = self.dlg.targetLayer.currentLayer().name()
             
             if TARGET_LYR_NAME == self.iface.activeLayer().name():

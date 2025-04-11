@@ -52,10 +52,10 @@ class QuickCopyPaste:
                     oldval = str(target_ft[target_fld_idx])
                     # Paste the data and reload the table
                     target_lyr.dataProvider().changeAttributeValues({target_ft.id(): {target_fld_idx: selval}})
-                    target_lyr.dataProvider().reloadData()
 
                     # reloadData() deselects the feature, reselect and flag so getfeats doesn't run
                     self.did_select = True
+                    target_lyr.dataProvider().reloadData()
                     target_lyr.select(target_ft.id())
                     self.did_select = False
 

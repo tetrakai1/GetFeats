@@ -191,10 +191,16 @@ class PluginDialog(QDialog, FORM_CLASS):
     def update_outfields(self):
         self.model.setHorizontalHeaderLabels(self.extract_outfields())
 
-    def update_table(self, OUT_FIELDS, features):
+    def clear_table(self, OUT_FIELDS):
         self.model.setRowCount(0)
         self.model.setColumnCount(0)
         self.model.setHorizontalHeaderLabels(OUT_FIELDS)
+
+    def update_table(self, OUT_FIELDS, features):
+        # self.model.setRowCount(0)
+        # self.model.setColumnCount(0)
+        # self.model.setHorizontalHeaderLabels(OUT_FIELDS)
+        self.clear_table(OUT_FIELDS)
         for feat in features:
             self.model.appendRow([QStandardItem(str(x)) for x in feat.attributes()])
 
