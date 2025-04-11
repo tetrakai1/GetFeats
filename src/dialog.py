@@ -21,6 +21,7 @@ from PyQt5.QtWidgets import QDialog
 from PyQt5.QtWidgets import QMenu
 
 # Python
+from math import isnan
 import os
 
 # Plugin
@@ -256,8 +257,11 @@ class PluginDialog(QDialog, FORM_CLASS):
                     self.nnNotes.setText('Converting ' + pre_bold + src_units + suf + ' to meters')
                 if src_units == 'degrees':
                     max_dist = self.maxDistance.value()
-                    lat      = max([abs(source_lyr.extent().yMinimum()), 
-                                    abs(source_lyr.extent().yMaximum())])
+                    if isnan(source_lyr.extent().yMinimum()):
+                        lat = 45
+                    else:
+                        lat = max([abs(source_lyr.extent().yMinimum()), 
+                                   abs(source_lyr.extent().yMaximum())])
                     deg_err  = est_degree_error(lat, max_dist)
                     deg_msg = ' - Consider reprojecting ' + pre_bold + SOURCE_LYR_NAME + suf + ' to a linear coordinate system'
                     self.nnNotes.append(pre_redi + deg_msg + suf)
