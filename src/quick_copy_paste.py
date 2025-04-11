@@ -65,7 +65,7 @@ class QuickCopyPaste:
                         color_str = 'color:#b7b0ff;">'
                     else:
                         color_str = 'color:#ff774a;">'
-                        
+
                     logmsg = self.format_log(fld_name, str(target_ft.id()), TARGET_LYR_NAME, 
                                              oldval, selval, color_str)
                     self.dlg.copyPasteLog.append(logmsg)
@@ -76,12 +76,12 @@ class QuickCopyPaste:
     def format_log(self, fld_name, fid, TARGET_LYR_NAME, oldval, selval, color_str):
         dt0      = QDateTime.currentDateTime().toString()
         pre_bold = '<span style=" font-weight:600; font-style:bold;'
-        dt   = pre_bold + color_str + dt0 +             '</span>'
-        fld  = pre_bold + '">'      + fld_name +        '</span>'
-        fid  = pre_bold + '">fid '  + fid +             '</span>'
+        dt   = pre_bold + color_str + dt0             + '</span>'
+        fld  = pre_bold + '">'      + fld_name        + '</span>'
+        fid  = pre_bold + '">fid '  + fid             + '</span>'
         lyr  = pre_bold + '">'      + TARGET_LYR_NAME + '</span>'
-        val0 = pre_bold + '">'      + oldval +          '</span>'
-        val  = pre_bold + '">'      + selval +          '</span>'
+        val0 = pre_bold + '">'      + oldval          + '</span>'
+        val  = pre_bold + '">'      + selval          + '</span>'
         logmsg = dt + ": " + fld + ' of ' + fid + ' in ' + lyr + ' from ' + val0 + ' to ' + val
 
         return logmsg
