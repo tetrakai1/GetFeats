@@ -116,6 +116,8 @@ The plugin directory can be found from the QGIS menu bar:
   <img src="img/readme/log_page.png" align="right" width="400">
 
   - Shows a timestamped history of [Quick Copy/Paste](#advanced-config) activity.
+  - If the copy/paste failed, the timestamp will be colored red.
+    - Eg, due to attempting to copy a *String* into an *Integer* field.
   - Can be used to:
     - Track the amount of time spent on each feature.
     - Check for errant copy/pastes.

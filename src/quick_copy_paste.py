@@ -60,21 +60,28 @@ class QuickCopyPaste:
                     self.did_select = False
 
                     # Append to the log page
-                    logmsg = self.format_log(fld_name, str(target_ft.id()), TARGET_LYR_NAME, oldval, selval)
+                    # Color red if it failed for some reason
+                    if str(target_lyr.selectedFeatures()[0][target_fld_idx]) == str(selval):
+                        color_str = 'color:#b7b0ff;">'
+                    else:
+                        color_str = 'color:#ff774a;">'
+                        
+                    logmsg = self.format_log(fld_name, str(target_ft.id()), TARGET_LYR_NAME, 
+                                             oldval, selval, color_str)
                     self.dlg.copyPasteLog.append(logmsg)
                 else:
                     self.msg.pushInfo('GetFeats:', TARGET_LYR_NAME + ' has no matching field: ' + fld_name)
 
 
-    def format_log(self, fld_name, fid, TARGET_LYR_NAME, oldval, selval):
+    def format_log(self, fld_name, fid, TARGET_LYR_NAME, oldval, selval, color_str):
         dt0      = QDateTime.currentDateTime().toString()
         pre_bold = '<span style=" font-weight:600; font-style:bold;'
-        dt   = pre_bold + 'color:#b7b0ff;">' + dt0 + '</span>'
-        fld  = pre_bold + '">'               + fld_name + '</span>'
-        fid  = pre_bold + '">fid '           + fid + '</span>'
-        lyr  = pre_bold + '">'               + TARGET_LYR_NAME + '</span>'
-        val0 = pre_bold + '">'               + oldval + '</span>'
-        val  = pre_bold + '">'               + selval + '</span>'
+        dt   = pre_bold + color_str + dt0 +             '</span>'
+        fld  = pre_bold + '">'      + fld_name +        '</span>'
+        fid  = pre_bold + '">fid '  + fid +             '</span>'
+        lyr  = pre_bold + '">'      + TARGET_LYR_NAME + '</span>'
+        val0 = pre_bold + '">'      + oldval +          '</span>'
+        val  = pre_bold + '">'      + selval +          '</span>'
         logmsg = dt + ": " + fld + ' of ' + fid + ' in ' + lyr + ' from ' + val0 + ' to ' + val
 
         return logmsg
