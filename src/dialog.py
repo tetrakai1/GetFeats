@@ -9,16 +9,16 @@ from qgis.core import QgsUnitTypes
 from qgis.utils import iface
 
 # PyQt
-from PyQt5           import uic
-from PyQt5.Qt        import QStandardItem
-from PyQt5.QtCore    import QDir 
-from PyQt5.QtCore    import QModelIndex
-from PyQt5.QtGui     import QFont
-from PyQt5.QtGui     import QStandardItemModel
-from PyQt5.QtWidgets import QFileSystemModel
-from PyQt5.QtWidgets import QHeaderView
-from PyQt5.QtWidgets import QDialog
-from PyQt5.QtWidgets import QMenu
+from qgis.PyQt           import uic
+from qgis.PyQt.Qt        import QStandardItem
+from qgis.PyQt.QtCore    import QDir 
+from qgis.PyQt.QtCore    import QModelIndex
+from qgis.PyQt.QtGui     import QFont
+from qgis.PyQt.QtGui     import QStandardItemModel
+from qgis.PyQt.QtWidgets import QFileSystemModel
+from qgis.PyQt.QtWidgets import QHeaderView
+from qgis.PyQt.QtWidgets import QDialog
+from qgis.PyQt.QtWidgets import QMenu
 
 # Python
 from math import isnan
@@ -74,9 +74,9 @@ class PluginDialog(QDialog, FORM_CLASS):
         self.fontSpinBox.setValue(int(TBL_FONT_SIZE))
 
         # Filter ComboBox layers
-        self.sourceLayer.setFilters(QgsMapLayerProxyModel.LineLayer)
+        self.sourceLayer.setFilters(QgsMapLayerProxyModel.Filter.LineLayer)
         self.sourceLayer.setShowCrs(True)
-        self.targetLayer.setFilters(QgsMapLayerProxyModel.PointLayer)
+        self.targetLayer.setFilters(QgsMapLayerProxyModel.Filter.PointLayer)
         self.targetLayer.setShowCrs(True)
 
         # Add link to custom_prep directory
@@ -89,7 +89,7 @@ class PluginDialog(QDialog, FORM_CLASS):
         # Init custom prep file picker
         self.fsm = QFileSystemModel()
         index    = self.fsm.setRootPath(fpath)
-        self.fsm.setFilter(QDir.Files|QDir.NoDotAndDotDot)
+        self.fsm.setFilter(QDir.Filter.Files|QDir.Filter.NoDotAndDotDot)
         self.fsm.setNameFilters(['*.py']) 
         self.customPrepFile.setModel(self.fsm)
         self.customPrepFile.setRootModelIndex(index)
@@ -177,7 +177,7 @@ class PluginDialog(QDialog, FORM_CLASS):
                 row, column = i.row(), i.column()
             menu = QMenu()
             copyAction = menu.addAction("Copy Selected Cell")
-            action = menu.exec_(self.mapToGlobal(event.pos()))
+            action = menu.exec(self.mapToGlobal(event.pos()))
             if action == copyAction:
                 val = self.tableView.model().item(row, column).text()
                 self.qapp.clipboard().setText(val)

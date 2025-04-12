@@ -2,8 +2,8 @@
 from qgis.core import QgsProject
 
 # PyQt
-from PyQt5.Qt     import QDateTime
-from PyQt5.QtCore import pyqtSlot
+from qgis.PyQt.Qt     import QDateTime
+from qgis.PyQt.QtCore import pyqtSlot
 
 # QGIS Utils
 from qgis.utils import iface

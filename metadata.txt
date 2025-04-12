@@ -1,8 +1,39 @@
 [general]
 name=GetFeats
 description=A semi-automation tool that creates an auto-updating table of feature attributes near a selected point. 
+
+about=When a point is clicked on one vector layer, a table is populated with the chosen feature attributes on a second layer with line geometry. These values can then be quickly copy/pasted into the original point layer attribute table.
+
+  Use Cases:
+  - Speeds up manual data entry while limiting the risk of typos during feature labeling. Simply copy/paste the correct value.
+
+  - When quality assurance (preventing errors) is preferred over quality control (handling errors later).
+
+  - When choosing a value from a list is desired, but manual entry may be necessary.
+
+  Check the readme in the github repository for further explanation.
+
 version=0.1
-qgisMinimumVersion=3.0
+qgisMinimumVersion=3.40
+qgisMaximumVersion=3.99
 author=tetrakai1
 email=192363196+tetrakai1@users.noreply.github.com
+homepage=https://github.com/tetrakai1/GetFeats
+tracker=https://github.com/tetrakai1/GetFeats/issues
+repository=https://github.com/tetrakai1/GetFeats
 icon=img/icon.png
+
+deprecated=False
+experimental=False
+hasProcessingProvider=False
+server=False
+supportsQt6=True
+
+tags=analysis, automation, vector, python
+# category=Vector
+# plugin_dependencies=False
+
+# changelog=
+#     0.1.0:
+#         * First Release
+

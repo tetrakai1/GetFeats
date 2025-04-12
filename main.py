@@ -3,8 +3,8 @@ from qgis.core import QgsProject
 from qgis.core import QgsSpatialIndex
 
 # PyQt
-from PyQt5.QtWidgets import QAction
-from PyQt5.QtGui     import QIcon
+from qgis.PyQt.QtWidgets import QAction
+from qgis.PyQt.QtGui     import QIcon
 
 # Python
 import os.path
@@ -88,7 +88,7 @@ class GetFeatsPlugin:
             source_lyr      = self.chk.check_lyr_valid(SOURCE_LYR_NAME)
             if source_lyr:
                 self.spatial_idx = QgsSpatialIndex(source_lyr.getFeatures(), 
-                                   flags = QgsSpatialIndex.FlagStoreFeatureGeometries)
+                                   flags = QgsSpatialIndex.Flag.FlagStoreFeatureGeometries)
                 self.dlg.update_nnNotes()
 
 
