@@ -2,7 +2,7 @@
 name=GetFeats
 description=A semi-automation tool that creates an auto-updating table of feature attributes near a selected point. 
 
-about=When a point is clicked on one vector layer, a table is populated with the chosen feature attributes on a second layer with line geometry. These values can then be quickly copy/pasted into the original point layer attribute table.
+about=When a point is selected from a designated vector layer, a table is populated with the chosen feature attributes from a second layer (must have line geometry). These values can then be quickly copy/pasted into the original point layer attribute table.
 
   Use Cases:
   - Speeds up manual data entry while limiting the risk of typos during feature labeling. Simply copy/paste the correct value.
