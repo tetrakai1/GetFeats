@@ -99,7 +99,7 @@ class PluginDialog(QDialog, FORM_CLASS):
         self.model = QStandardItemModel()
         self.tableView.setModel(self.model)
         self.tableView.horizontalHeader().setStretchLastSection(False)
-        self.tableView.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.tableView.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.model.setHorizontalHeaderLabels(self.extract_outfields())
         self.selection_model = self.tableView.selectionModel()
         self.set_table_font()
