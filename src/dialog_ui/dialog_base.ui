@@ -77,7 +77,7 @@
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page">
       <property name="sizePolicy">
@@ -1186,6 +1186,9 @@ p, li { white-space: pre-wrap; }
                 </item>
                 <item>
                  <widget class="QLabel" name="customPrepLink">
+                  <property name="contextMenuPolicy">
+                   <enum>Qt::DefaultContextMenu</enum>
+                  </property>
                   <property name="frameShape">
                    <enum>QFrame::NoFrame</enum>
                   </property>
@@ -1194,6 +1197,9 @@ p, li { white-space: pre-wrap; }
                   </property>
                   <property name="text">
                    <string>- DirLink</string>
+                  </property>
+                  <property name="openExternalLinks">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
