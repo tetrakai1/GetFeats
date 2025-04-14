@@ -61,7 +61,9 @@ class QuickCopyPaste:
 
                     # Append to the log page
                     # Color red if it failed for some reason
-                    if str(target_lyr.selectedFeatures()[0][target_fld_idx]) == str(selval):
+                    # QGIS will auto-cast int to float, this should not be flagged red
+                    str_list = [str(selval), str(selval) + '.0']
+                    if str(target_lyr.selectedFeatures()[0][target_fld_idx]) in str_list:
                         color_str = 'color:#b7b0ff;">'
                     else:
                         color_str = 'color:#ff774a;">'
