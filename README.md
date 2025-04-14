@@ -125,8 +125,8 @@ The plugin directory can be found from the QGIS menu bar:
     - Check for errant copy/pastes.
   - Reset the log window by clicking **Clear Log**.
   - Logs can also be saved/loaded from the profile directory.
-    - Loaded logs can be distinguished from the current session by lack of text formatting.
-    - Logs are saved as `qcplogt.txt`, manual backup is required to maintain multiple logs.
+    - Loaded logs can be distinguished from the current session by lack of colored text.
+    - Logs are saved as `qcplog.txt`, manual backup is required to maintain multiple logs.
     - Warnings:
       - **Load Log** overwrites the current log panel.
       - **Save Log (Overwrite)** overwrites the existing log file.
