@@ -332,7 +332,11 @@ class PluginDialog(QDialog, FORM_CLASS):
         return path
 
     def clear_log(self):
-        self.copyPasteLog.clear() 
+        conf = QMessageBox.question(self, "Confirmation", 
+                            "This action will clear the current log window. Continue?", 
+                            QMessageBox.Yes | QMessageBox.No)
+        if conf == QMessageBox.Yes:
+            self.copyPasteLog.clear() 
 
     def save_log(self):
         dirpath = self.get_user_folder()
