@@ -114,7 +114,9 @@ class PluginDialog(QDialog, FORM_CLASS):
 
         # Update the source field combobx and connect the add button
         self.sourceLayer.currentIndexChanged.connect(self.update_source_field_box)
-        self.addField.clicked.connect(self.add_field)
+        self.addSourceField.clicked.connect(self.add_source_field)
+        self.targetLayer.currentIndexChanged.connect(self.update_target_field_box)
+        self.addTargetField.clicked.connect(self.add_target_field)
 
         # Update the custom prep info
         self.fsm.directoryLoaded.connect(self.on_custom_prep_dir_loaded)
@@ -186,6 +188,7 @@ class PluginDialog(QDialog, FORM_CLASS):
                 val = self.tableView.model().item(row, column).text()
                 self.qapp.clipboard().setText(val)
 
+
     def update_source_field_box(self):
         self.sourceFieldBox.clear()
         if self.chk.check_dialog_lyrs_exist(self, warn_nolyr = False):
@@ -194,10 +197,25 @@ class PluginDialog(QDialog, FORM_CLASS):
             if source_lyr:
                 self.sourceFieldBox.setLayer(source_lyr)
 
-    def add_field(self):
+    def add_source_field(self):
         oldtxt = self.sourceFields.text()
         newval = self.sourceFieldBox.currentField()
         self.sourceFields.setText(oldtxt + ', ' + newval)
+
+
+    def update_target_field_box(self):
+        self.targetFieldBox.clear()
+        if self.chk.check_dialog_lyrs_exist(self, warn_nolyr = False):
+            TARGET_LYR_NAME = self.targetLayer.currentLayer().name()
+            target_lyr      = self.chk.check_lyr_valid(TARGET_LYR_NAME)
+            if target_lyr:
+                self.targetFieldBox.setLayer(target_lyr)
+
+    def add_target_field(self):
+        oldtxt = self.outputFields.text()
+        newval = self.targetFieldBox.currentField()
+        self.outputFields.setText(oldtxt + ', ' + newval)
+
 
     def extract_sourcefields(self):
         return [x.strip() for x in self.sourceFields.text().split(',')]
