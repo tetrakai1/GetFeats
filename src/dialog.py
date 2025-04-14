@@ -108,7 +108,7 @@ class PluginDialog(QDialog, FORM_CLASS):
 
         # Add link to log directory
         fpath    = self.get_user_folder()
-        path_str = '- <a href =' + fpath + '><span style="color:lightskyblue;">Link to Log Directory</span></a>'
+        path_str = '- <a href ="file:///%s"><span style="color:lightskyblue;">Link to Log Directory</span></a>'%(fpath)
         self.logDirLink.setText(path_str)
         self.logDirLink.setToolTip(fpath)
         self.logDirLink.setOpenExternalLinks(True)
