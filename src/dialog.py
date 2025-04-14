@@ -21,7 +21,8 @@ from qgis.PyQt.QtWidgets import QDialog
 from qgis.PyQt.QtWidgets import QMenu
 
 # Python
-from math import isnan
+from math    import isnan
+from os.path import abspath
 import os
 
 # Plugin
@@ -81,7 +82,7 @@ class PluginDialog(QDialog, FORM_CLASS):
 
         # Add link to custom_prep directory
         fpath    = os.path.join(os.path.dirname(__file__), 'custom_prep')
-        path_str = '- <a href =' + fpath + '><span style="color:lightskyblue;">Link to directory</span></a>'
+        path_str = '- <a href =' + fpath + '><span style="color:lightskyblue;">Link to Custom Prep Directory</span></a>'
         self.customPrepLink.setText(path_str)
         self.customPrepLink.setToolTip(fpath)
         self.customPrepLink.setOpenExternalLinks(True)
@@ -104,6 +105,13 @@ class PluginDialog(QDialog, FORM_CLASS):
         self.selection_model = self.tableView.selectionModel()
         self.set_table_font()
         self.update_table_panel_lbls()
+
+        # Add link to log directory
+        fpath    = self.get_user_folder()
+        path_str = '- <a href =' + fpath + '><span style="color:lightskyblue;">Link to Log Directory</span></a>'
+        self.logDirLink.setText(path_str)
+        self.logDirLink.setToolTip(fpath)
+        self.logDirLink.setOpenExternalLinks(True)
 
 
         ###################
@@ -133,6 +141,11 @@ class PluginDialog(QDialog, FORM_CLASS):
 
         # Save only custom prep script choice
         self.saveCustomPrep.clicked.connect(lambda: self.save_custom_prep())
+
+        self.clearLog.clicked.connect(self.clear_log)
+        self.saveLog.clicked.connect(self.save_log)
+        self.appendLog.clicked.connect(self.append_log)
+        self.loadLog.clicked.connect(self.load_log)
         
         # Connect the Menu/Done buttons
         self.showMenu.clicked.connect(self.show_menu)
@@ -310,6 +323,44 @@ class PluginDialog(QDialog, FORM_CLASS):
                     self.nnNotes.append('Estimated ' + pre_bold + 'Max Distance' + suf + ' error:')
                     self.nnNotes.append(pre_blue + ' - Lat' + suf + ': ' + pre_bold + str(deg_err[0]) + suf + ' m')
                     self.nnNotes.append(pre_blue + ' - Lon' + suf + ': ' + pre_bold + str(deg_err[1]) + suf + ' m')
+
+
+    def get_user_folder(self):
+        path = abspath(os.path.join(self.qapp.qgisSettingsDirPath(), 'GetFeats'))
+        if not QDir(path).exists():
+            QDir().mkdir(path)
+    
+        return path
+
+    def clear_log(self):
+        self.copyPasteLog.clear() 
+
+    def save_log(self):
+        dirpath = self.get_user_folder()
+        fpath   = os.path.join(dirpath, 'qcplog.txt')
+        with open(fpath, 'w') as outfile:
+            outfile.write(str(self.copyPasteLog.toPlainText()))
+            self.msg.pushInfo('GetFeats:', 'Log file overwritten')
+
+    def append_log(self):
+        dirpath = self.get_user_folder()
+        fpath   = os.path.join(dirpath, 'qcplog.txt')
+        with open(fpath, 'a') as outfile:
+            outfile.write('\n' + str(self.copyPasteLog.toPlainText()))
+            self.msg.pushInfo('GetFeats:', 'Log appended to file')
+
+    def load_log(self):
+        dirpath = self.get_user_folder()
+        fpath   = os.path.join(dirpath, 'qcplog.txt')
+        if os.path.isfile(fpath):
+            with open(fpath, 'r') as infile:
+                oldlog = open(fpath).read()
+                self.copyPasteLog.setPlainText(oldlog)
+                self.msg.pushInfo('GetFeats:', 'Log loaded from file')
+        else:
+            self.msg.pushInfo('GetFeats:', 'No log file found')
+
+
 
     def on_close(self):
         self.activatePlugin.setChecked(False)

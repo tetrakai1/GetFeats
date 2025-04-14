@@ -123,5 +123,13 @@ The plugin directory can be found from the QGIS menu bar:
   - Can be used to:
     - Track the amount of time spent on each feature.
     - Check for errant copy/pastes.
+  - Reset the log window by clicking **Clear Log**.
+  - Logs can also be saved/loaded from the profile directory.
+    - Loaded logs can be distinguished from the current session by lack of text formatting.
+    - Logs are saved as `qcplogt.txt`, manual backup is required to maintain multiple logs.
+    - Warnings:
+      - **Load Log** overwrites the current log panel.
+      - **Save Log (Overwrite)** overwrites the existing log file.
+      - **Save Log (Append)** appends to the end of the existing log file.
 
 <br clear="right"/>
