@@ -144,6 +144,9 @@ class GetFeatsPlugin:
                 self.dlg.sourceLayer.setLayer(source_lyr[0])
                 self.dlg.targetLayer.setLayer(target_lyr[0])
 
+                # Init source field combobox 
+                self.dlg.update_source_field_box()
+
                 self.is_first_run = False
 
         self.check_plugin_enabled()

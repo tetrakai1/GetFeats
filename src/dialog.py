@@ -112,6 +112,10 @@ class PluginDialog(QDialog, FORM_CLASS):
         # Set up the dialog pages
         self.pageMenu.currentRowChanged['int'].connect(self.stackedWidget.setCurrentIndex)
 
+        # Update the source field combobx and connect the add button
+        self.sourceLayer.currentIndexChanged.connect(self.update_source_field_box)
+        self.addField.clicked.connect(self.add_field)
+
         # Update the custom prep info
         self.fsm.directoryLoaded.connect(self.on_custom_prep_dir_loaded)
 
@@ -181,6 +185,19 @@ class PluginDialog(QDialog, FORM_CLASS):
             if action == copyAction:
                 val = self.tableView.model().item(row, column).text()
                 self.qapp.clipboard().setText(val)
+
+    def update_source_field_box(self):
+        self.sourceFieldBox.clear()
+        if self.chk.check_dialog_lyrs_exist(self, warn_nolyr = False):
+            SOURCE_LYR_NAME = self.sourceLayer.currentLayer().name()
+            source_lyr      = self.chk.check_lyr_valid(SOURCE_LYR_NAME)
+            if source_lyr:
+                self.sourceFieldBox.setLayer(source_lyr)
+
+    def add_field(self):
+        oldtxt = self.sourceFields.text()
+        newval = self.sourceFieldBox.currentField()
+        self.sourceFields.setText(oldtxt + ', ' + newval)
 
     def extract_sourcefields(self):
         return [x.strip() for x in self.sourceFields.text().split(',')]

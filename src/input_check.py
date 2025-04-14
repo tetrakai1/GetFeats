@@ -39,13 +39,13 @@ class InputCheck:
 
         return res
 
-    def check_dialog_lyrs_exist(self, dlg):
+    def check_dialog_lyrs_exist(self, dlg, warn_nolyr = True):
         target_present = dlg.targetLayer.currentLayer()
         src_present    = dlg.sourceLayer.currentLayer()
 
-        if not target_present:
+        if (not target_present) and warn_nolyr:
             self.msg.pushInfo('GetFeats:', 'No Target layer selected')
-        if not src_present:
+        if (not src_present) and warn_nolyr:
             self.msg.pushInfo('GetFeats:', 'No Source layer selected')
 
         return target_present and src_present

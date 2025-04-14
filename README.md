@@ -52,6 +52,7 @@ The plugin directory can be found from the QGIS menu bar:
        - Leading/trailing white space will be stripped out.
        - The results will populate the [Table](#output-table).
      - Source
+       - Values can be selected from the combobox or typed manually.
        - At least one value must be a field in the **Source** layer.
        - Repeated values are allowed.
        - Values not corresponding to a **Source** field will fill that column of the [Table](#output-table).
