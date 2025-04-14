@@ -147,6 +147,7 @@ class GetFeatsPlugin:
 
                 # Init source field combobox 
                 self.dlg.update_source_field_box()
+                self.dlg.update_target_field_box()
 
                 self.is_first_run = False
 
