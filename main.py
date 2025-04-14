@@ -114,12 +114,13 @@ class GetFeatsPlugin:
                 MAX_DISTANCE    = self.dlg.maxDistance.value()
                 NEIGHBORS       = self.dlg.nNeighbors.value()
                 USE_CUSTOM_PREP = self.dlg.customPrep.isChecked()
-        
+
                 if len(SRC_FIELDS0) == len(OUT_FIELDS):
                     source_lyr = self.chk.check_lyr_valid(SOURCE_LYR_NAME)
                     target_lyr = self.chk.check_lyr_valid(TARGET_LYR_NAME)
-        
-                    if target_lyr and source_lyr:
+                    out_flag   = self.chk.check_dup_outfields(OUT_FIELDS)
+
+                    if target_lyr and source_lyr and out_flag:
                         # Extract unduplicated actual fieldnames from the text input
                         SRC_FIELDS = list(set([x for x in SRC_FIELDS0 if x in source_lyr.fields().names()]))
         

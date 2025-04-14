@@ -59,7 +59,7 @@ The plugin directory can be found from the QGIS menu bar:
        - Values not corresponding to a **Source** field will fill that column of the [Table](#output-table).
      - Output
        - These values will be the column names of the [Table](#output-table).
-       - Any values are allowed, but there must be the same number as chosen for **Source**.
+       - Any non-duplicated values are allowed, but there must be the same number as chosen for **Source**.
        - However, if [Quick Copy/Paste](#advanced-config) will be used these should correspond to fields in the **Target** layer.
    - **Nearest-Neighbor Parameters**
      - Max Distance

@@ -25,6 +25,13 @@ class InputCheck:
 
         return flag
 
+    def check_dup_outfields(self, OUT_FIELDS):
+        flag  = len(set(OUT_FIELDS)) == len(OUT_FIELDS)
+        if not flag:
+            self.msg.pushInfo('GetFeats:', 'Cannot have duplicate Output fields')
+
+        return flag
+
 
     def check_lyr_valid(self, lyr_name):
         lyrs  = QgsProject.instance().mapLayersByName(lyr_name)
