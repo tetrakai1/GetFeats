@@ -19,6 +19,7 @@ from qgis.PyQt.QtWidgets import QFileSystemModel
 from qgis.PyQt.QtWidgets import QHeaderView
 from qgis.PyQt.QtWidgets import QDialog
 from qgis.PyQt.QtWidgets import QMenu
+from qgis.PyQt.QtWidgets import QMessageBox
 
 # Python
 from math    import isnan
@@ -246,9 +247,6 @@ class PluginDialog(QDialog, FORM_CLASS):
         self.model.setHorizontalHeaderLabels(OUT_FIELDS)
 
     def update_table(self, OUT_FIELDS, features):
-        # self.model.setRowCount(0)
-        # self.model.setColumnCount(0)
-        # self.model.setHorizontalHeaderLabels(OUT_FIELDS)
         self.clear_table(OUT_FIELDS)
         for feat in features:
             self.model.appendRow([QStandardItem(str(x)) for x in feat.attributes()])
@@ -339,9 +337,14 @@ class PluginDialog(QDialog, FORM_CLASS):
     def save_log(self):
         dirpath = self.get_user_folder()
         fpath   = os.path.join(dirpath, 'qcplog.txt')
-        with open(fpath, 'w') as outfile:
-            outfile.write(str(self.copyPasteLog.toPlainText()))
-            self.msg.pushInfo('GetFeats:', 'Log file overwritten')
+        conf    = QMessageBox.question(self, "Confirmation", 
+                                       "This action will overwrite the log file. Continue?", 
+                                       QMessageBox.Yes | QMessageBox.No)
+
+        if conf == QMessageBox.Yes:
+            with open(fpath, 'w') as outfile:
+                outfile.write(str(self.copyPasteLog.toPlainText()))
+                self.msg.pushInfo('GetFeats:', 'Log file overwritten')
 
     def append_log(self):
         dirpath = self.get_user_folder()
@@ -353,13 +356,17 @@ class PluginDialog(QDialog, FORM_CLASS):
     def load_log(self):
         dirpath = self.get_user_folder()
         fpath   = os.path.join(dirpath, 'qcplog.txt')
-        if os.path.isfile(fpath):
-            with open(fpath, 'r') as infile:
-                oldlog = open(fpath).read()
-                self.copyPasteLog.setPlainText(oldlog)
-                self.msg.pushInfo('GetFeats:', 'Log loaded from file')
-        else:
-            self.msg.pushInfo('GetFeats:', 'No log file found')
+        conf    = QMessageBox.question(self, "Confirmation", 
+                                       "This action will clear the current log window. Continue?", 
+                                       QMessageBox.Yes | QMessageBox.No)
+        if conf == QMessageBox.Yes:
+            if os.path.isfile(fpath):
+                with open(fpath, 'r') as infile:
+                    oldlog = open(fpath).read()
+                    self.copyPasteLog.setPlainText(oldlog)
+                    self.msg.pushInfo('GetFeats:', 'Log loaded from file')
+            else:
+                self.msg.pushInfo('GetFeats:', 'No log file found')
 
 
 
