@@ -142,6 +142,7 @@ class PluginDialog(QDialog, FORM_CLASS):
         # Save only custom prep script choice
         self.saveCustomPrep.clicked.connect(lambda: self.save_custom_prep())
 
+        # Connect the log buttons
         self.clearLog.clicked.connect(self.clear_log)
         self.saveLog.clicked.connect(self.save_log)
         self.appendLog.clicked.connect(self.append_log)
