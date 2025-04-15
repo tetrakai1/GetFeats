@@ -390,9 +390,14 @@ class PluginDialog(QDialog, FORM_CLASS):
     def load_log(self):
         dirpath = self.get_user_folder()
         fpath   = os.path.join(dirpath, 'qcplog.txt')
-        conf    = QMessageBox.question(self, "Confirmation", 
-                                       "This action will clear the current log window. Continue?", 
-                                       QMessageBox.Yes | QMessageBox.No)
+        # Only if there is something in the TextEdit
+        if str(self.copyPasteLog.toPlainText()) != '':
+            conf    = QMessageBox.question(self, "Confirmation", 
+                                           "This action will clear the current log window. Continue?", 
+                                           QMessageBox.Yes | QMessageBox.No)
+        else:
+            conf   = QMessageBox.Yes
+
         if conf == QMessageBox.Yes:
             if os.path.isfile(fpath):
                 with open(fpath, 'r') as infile:
