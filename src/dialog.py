@@ -121,11 +121,13 @@ class PluginDialog(QDialog, FORM_CLASS):
         # Set up the dialog pages
         self.pageMenu.currentRowChanged['int'].connect(self.stackedWidget.setCurrentIndex)
 
-        # Update the source field combobox and connect the add button
+        # Update the field comboboxes and connect the add/remove buttons
         self.sourceLayer.currentIndexChanged.connect(self.update_source_field_box)
-        self.addSourceField.clicked.connect(self.add_source_field)
         self.targetLayer.currentIndexChanged.connect(self.update_target_field_box)
+        self.addSourceField.clicked.connect(self.add_source_field)
         self.addTargetField.clicked.connect(self.add_target_field)
+        self.remSourceField.clicked.connect(lambda: self.remove_last_fld(self.sourceFields))
+        self.remOutField.clicked.connect(lambda: self.remove_last_fld(self.outputFields))
 
         # Update Max Distance spinbox
         self.maxDistance.valueChanged.connect(self.update_nnNotes)
@@ -236,6 +238,11 @@ class PluginDialog(QDialog, FORM_CLASS):
         oldtxt = self.outputFields.text()
         newval = self.targetFieldBox.currentField()
         self.outputFields.setText(oldtxt + ', ' + newval)
+
+    def remove_last_fld(self, flds):
+        oldtxt = flds.text()
+        newtxt = oldtxt.rpartition(',')[0]
+        flds.setText(newtxt)
 
 
     def extract_sourcefields(self):

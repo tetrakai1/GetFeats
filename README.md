@@ -56,7 +56,8 @@ The plugin directory can be found from the QGIS menu bar:
          - Leading/trailing white space will be stripped out.
        - Values can be selected from the combobox or typed manually.
          - Note that suggestions for the **Output** fields come from the **Target** layer.
-       - The results will populate the [Table](#output-table).
+       - Last field in the list can be deleted by clicking the `<<<` button. 
+       - Results will populate the [Table](#output-table).
      - Source
        - At least one value must be a field in the **Source** layer.
        - Repeated values are allowed.

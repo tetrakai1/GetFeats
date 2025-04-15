@@ -77,7 +77,7 @@
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page">
       <property name="sizePolicy">
@@ -449,82 +449,14 @@
                   <property name="bottomMargin">
                    <number>0</number>
                   </property>
-                  <item row="2" column="1">
-                   <widget class="QLineEdit" name="sourceFields">
-                    <property name="font">
-                     <font>
-                      <pointsize>10</pointsize>
-                     </font>
-                    </property>
-                    <property name="focusPolicy">
-                     <enum>Qt::StrongFocus</enum>
-                    </property>
-                    <property name="toolTip">
-                     <string>Source field names to map to output (max 100 characters)</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_44">
                     <property name="text">
-                     <string/>
+                     <string>Source:</string>
                     </property>
-                    <property name="maxLength">
-                     <number>100</number>
+                    <property name="alignment">
+                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                     </property>
-                    <property name="placeholderText">
-                     <string>Source Layer Fields</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="1">
-                   <widget class="QLineEdit" name="outputFields">
-                    <property name="font">
-                     <font>
-                      <pointsize>10</pointsize>
-                     </font>
-                    </property>
-                    <property name="toolTip">
-                     <string>Output field names for table panel (max 100 characters)</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="maxLength">
-                     <number>100</number>
-                    </property>
-                    <property name="placeholderText">
-                     <string>Output Table Fields</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="6" column="0" colspan="2">
-                   <widget class="QFrame" name="frame_7">
-                    <property name="frameShape">
-                     <enum>QFrame::NoFrame</enum>
-                    </property>
-                    <property name="frameShadow">
-                     <enum>QFrame::Plain</enum>
-                    </property>
-                    <property name="lineWidth">
-                     <number>0</number>
-                    </property>
-                    <layout class="QHBoxLayout" name="horizontalLayout_4">
-                     <property name="leftMargin">
-                      <number>0</number>
-                     </property>
-                     <property name="topMargin">
-                      <number>0</number>
-                     </property>
-                     <property name="rightMargin">
-                      <number>0</number>
-                     </property>
-                     <property name="bottomMargin">
-                      <number>0</number>
-                     </property>
-                    </layout>
                    </widget>
                   </item>
                   <item row="1" column="1">
@@ -591,6 +523,9 @@
                          <pointsize>10</pointsize>
                         </font>
                        </property>
+                       <property name="toolTip">
+                        <string>Add the selected Source field</string>
+                       </property>
                        <property name="text">
                         <string>Add Source Field</string>
                        </property>
@@ -599,10 +534,83 @@
                     </layout>
                    </widget>
                   </item>
-                  <item row="1" column="0">
-                   <widget class="QLabel" name="label_44">
+                  <item row="3" column="1">
+                   <widget class="QFrame" name="frame_25">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Plain</enum>
+                    </property>
+                    <layout class="QHBoxLayout" name="horizontalLayout_14">
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QLineEdit" name="sourceFields">
+                       <property name="font">
+                        <font>
+                         <pointsize>10</pointsize>
+                        </font>
+                       </property>
+                       <property name="focusPolicy">
+                        <enum>Qt::StrongFocus</enum>
+                       </property>
+                       <property name="toolTip">
+                        <string>Source field names to map to output (max 100 characters)</string>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true"/>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="maxLength">
+                        <number>100</number>
+                       </property>
+                       <property name="placeholderText">
+                        <string>Source Layer Fields</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="remSourceField">
+                       <property name="toolTip">
+                        <string>Remove Last Field</string>
+                       </property>
+                       <property name="text">
+                        <string>&lt;&lt;&lt;</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="label_45">
                     <property name="text">
-                     <string>Source:</string>
+                     <string>Output:</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -673,6 +681,9 @@
                          <pointsize>10</pointsize>
                         </font>
                        </property>
+                       <property name="toolTip">
+                        <string>Add the selected Target field</string>
+                       </property>
                        <property name="text">
                         <string>Add Target Field</string>
                        </property>
@@ -681,14 +692,104 @@
                     </layout>
                    </widget>
                   </item>
-                  <item row="4" column="0">
-                   <widget class="QLabel" name="label_45">
-                    <property name="text">
-                     <string>Output:</string>
+                  <item row="7" column="0" colspan="2">
+                   <widget class="QFrame" name="frame_7">
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
                     </property>
-                    <property name="alignment">
-                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    <property name="frameShadow">
+                     <enum>QFrame::Plain</enum>
                     </property>
+                    <property name="lineWidth">
+                     <number>0</number>
+                    </property>
+                    <layout class="QHBoxLayout" name="horizontalLayout_4">
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item row="5" column="1">
+                   <widget class="QFrame" name="frame_26">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>100</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                     <enum>QFrame::Plain</enum>
+                    </property>
+                    <property name="lineWidth">
+                     <number>0</number>
+                    </property>
+                    <layout class="QHBoxLayout" name="horizontalLayout_15">
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QLineEdit" name="outputFields">
+                       <property name="font">
+                        <font>
+                         <pointsize>10</pointsize>
+                        </font>
+                       </property>
+                       <property name="toolTip">
+                        <string>Output field names for table panel (max 100 characters)</string>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true"/>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                       <property name="maxLength">
+                        <number>100</number>
+                       </property>
+                       <property name="placeholderText">
+                        <string>Output Table Fields</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="remOutField">
+                       <property name="toolTip">
+                        <string>Remove Last Field</string>
+                       </property>
+                       <property name="text">
+                        <string>&lt;&lt;&lt;</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
                    </widget>
                   </item>
                  </layout>
