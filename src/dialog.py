@@ -65,6 +65,7 @@ class PluginDialog(QDialog, FORM_CLASS):
         USE_CUSTOM_PREP = s.value("GetFeats/customPrep",   True)
         SELECT_FEATS    = s.value("GetFeats/selectFeats",  True)
         TBL_FONT_SIZE   = s.value("GetFeats/fontSpinBox",  10)
+        LOG_FONT_SIZE   = s.value("GetFeats/logSpinBox",   10)
 
         # Set values from settings
         self.sourceFields.setText(SRC_FIELDS0)
@@ -74,6 +75,7 @@ class PluginDialog(QDialog, FORM_CLASS):
         self.customPrep.setChecked(bool(USE_CUSTOM_PREP))
         self.selectFeats.setChecked(bool(SELECT_FEATS))
         self.fontSpinBox.setValue(int(TBL_FONT_SIZE))
+        self.logSpinBox.setValue(int(LOG_FONT_SIZE))
 
         # Filter ComboBox layers
         self.sourceLayer.setFilters(QgsMapLayerProxyModel.Filter.LineLayer)
@@ -114,6 +116,8 @@ class PluginDialog(QDialog, FORM_CLASS):
         self.logDirLink.setToolTip(fpath)
         self.logDirLink.setOpenExternalLinks(True)
 
+        # Set log font size
+        self.set_log_font()
 
         ###################
         ### Connections ###
@@ -129,6 +133,9 @@ class PluginDialog(QDialog, FORM_CLASS):
         self.remSourceField.clicked.connect(lambda: self.remove_last_fld(self.sourceFields))
         self.remOutField.clicked.connect(lambda: self.remove_last_fld(self.outputFields))
 
+        # Update the log font size
+        self.logSpinBox.valueChanged.connect(self.set_log_font)
+
         # Update Max Distance spinbox
         self.maxDistance.valueChanged.connect(self.update_nnNotes)
 
@@ -141,7 +148,7 @@ class PluginDialog(QDialog, FORM_CLASS):
         # Update table column names based on output fields in config
         self.outputFields.textChanged.connect(self.update_outfields)
 
-        # Update the data table
+        # Update the data table font size
         self.fontSpinBox.valueChanged.connect(self.set_table_font)
 
         # Update the labels on the table panel
@@ -188,6 +195,10 @@ class PluginDialog(QDialog, FORM_CLASS):
     def set_table_font(self):
         font_size = self.fontSpinBox.value()
         self.tableView.setFont(QFont("Ubuntu", font_size))
+
+    def set_log_font(self):
+        font_size = self.logSpinBox.value()
+        self.copyPasteLog.setFont(QFont("Ubuntu", font_size))
 
     def show_menu(self):
         if self.showMenu.isChecked():
@@ -282,6 +293,7 @@ class PluginDialog(QDialog, FORM_CLASS):
                 s.setValue("GetFeats/customPrepFile", self.customPrepFile.currentText())
                 s.setValue("GetFeats/selectFeats",    self.customPrep.isChecked())
                 s.setValue("GetFeats/fontSpinBox",    self.fontSpinBox.value())
+                s.setValue("GetFeats/logSpinBox",     self.logSpinBox.value())
     
                 self.msg.pushInfo('GetFeats:', 'Settings Saved')
 
