@@ -9,6 +9,10 @@ QGIS plugin - A semi-automation tool. Creates an auto-updating table of feature 
 - When choosing a value from a list is desired, but manual entry may be necessary.
 
   <img src="img/readme/usage_example.gif" align="center" width="750">
+  
+  **Map Credits**
+  - https://github.com/bburns/Arda
+  - https://github.com/andrewheiss/ME-GIS
 
 # Installation
 ## QGIS Plugin Directory
