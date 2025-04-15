@@ -83,7 +83,7 @@ class PluginDialog(QDialog, FORM_CLASS):
 
         # Add link to custom_prep directory
         fpath    = os.path.join(os.path.dirname(__file__), 'custom_prep')
-        path_str = '- <a href =' + fpath + '><span style="color:lightskyblue;">Link to Custom Prep Directory</span></a>'
+        path_str = '- <a href ="file:///%s"><span style="color:lightskyblue;">Link to Custom Prep Directory</span></a>'%(fpath)
         self.customPrepLink.setText(path_str)
         self.customPrepLink.setToolTip(fpath)
         self.customPrepLink.setOpenExternalLinks(True)
