@@ -40,11 +40,9 @@ class GetFeatsPlugin:
         self.toolbar.addAction(self.action)
 
         # Declare dialog connections
-        self.dlg.saveSettings.clicked.connect(lambda: self.dlg.save_settings())
         self.dlg.targetLayer.currentIndexChanged.connect(self.check_plugin_enabled)
         self.dlg.sourceLayer.currentIndexChanged.connect(self.check_plugin_enabled)
         self.dlg.activatePlugin.stateChanged.connect(self.check_plugin_enabled)
-        self.dlg.maxDistance.valueChanged.connect(self.dlg.update_nnNotes)
         self.dlg.selection_model.selectionChanged.connect(lambda a, b: self.qcp.selected_cell(a, b))
 
         # Create Hotkey

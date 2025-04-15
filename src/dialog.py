@@ -121,11 +121,17 @@ class PluginDialog(QDialog, FORM_CLASS):
         # Set up the dialog pages
         self.pageMenu.currentRowChanged['int'].connect(self.stackedWidget.setCurrentIndex)
 
-        # Update the source field combobx and connect the add button
+        # Update the source field combobox and connect the add button
         self.sourceLayer.currentIndexChanged.connect(self.update_source_field_box)
         self.addSourceField.clicked.connect(self.add_source_field)
         self.targetLayer.currentIndexChanged.connect(self.update_target_field_box)
         self.addTargetField.clicked.connect(self.add_target_field)
+
+        # Update Max Distance spinbox
+        self.maxDistance.valueChanged.connect(self.update_nnNotes)
+
+        # Save Settings
+        self.saveSettings.clicked.connect(self.save_settings)
 
         # Update the custom prep info
         self.fsm.directoryLoaded.connect(self.on_custom_prep_dir_loaded)
