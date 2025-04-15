@@ -347,14 +347,19 @@ class PluginDialog(QDialog, FORM_CLASS):
     def save_log(self):
         dirpath = self.get_user_folder()
         fpath   = os.path.join(dirpath, 'qcplog.txt')
-        conf    = QMessageBox.question(self, "Confirmation", 
-                                       "This action will overwrite the log file. Continue?", 
-                                       QMessageBox.Yes | QMessageBox.No)
+        if os.path.isfile(fpath):
+            logmsg = 'Log file overwritten'
+            conf   = QMessageBox.question(self, "Confirmation", 
+                                          "This action will overwrite the log file. Continue?", 
+                                          QMessageBox.Yes | QMessageBox.No)
+        else:
+            logmsg = 'New log file saved'
+            conf   = QMessageBox.Yes
 
         if conf == QMessageBox.Yes:
             with open(fpath, 'w') as outfile:
                 outfile.write(str(self.copyPasteLog.toPlainText()))
-                self.msg.pushInfo('GetFeats:', 'Log file overwritten')
+                self.msg.pushInfo('GetFeats:', logmsg)
 
     def append_log(self):
         dirpath = self.get_user_folder()
