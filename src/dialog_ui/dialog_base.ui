@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>593</width>
-    <height>497</height>
+    <height>504</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -80,7 +80,7 @@
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page">
       <property name="sizePolicy">
@@ -227,6 +227,28 @@
                      </size>
                     </property>
                    </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="helpButton">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>Link to Readme</string>
+                    </property>
+                    <property name="autoFillBackground">
+                     <bool>false</bool>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>?</string>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </widget>

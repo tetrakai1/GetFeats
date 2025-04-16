@@ -13,11 +13,11 @@ about=When a point is selected from a designated vector layer, a table is popula
 
   Check the readme in the github repository for further explanation.
 
-version=0.1
+version=0.1.0
 qgisMinimumVersion=3.40
 qgisMaximumVersion=3.99
 author=tetrakai1
-email=192363196+tetrakai1@users.noreply.github.com
+email=tetrakai1@proton.me
 homepage=https://github.com/tetrakai1/GetFeats
 tracker=https://github.com/tetrakai1/GetFeats/issues
 repository=https://github.com/tetrakai1/GetFeats
@@ -27,13 +27,13 @@ deprecated=False
 experimental=False
 hasProcessingProvider=False
 server=False
-supportsQt6=True
+# supportsQt6=True
 
 tags=analysis, automation, vector, python
 # category=Vector
 # plugin_dependencies=False
 
-# changelog=
-#     0.1.0:
-#         * First Release
+changelog=
+    0.1.0:
+        * First Release
 

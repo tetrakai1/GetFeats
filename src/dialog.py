@@ -20,6 +20,9 @@ from qgis.PyQt.QtWidgets import QHeaderView
 from qgis.PyQt.QtWidgets import QDialog
 from qgis.PyQt.QtWidgets import QMenu
 from qgis.PyQt.QtWidgets import QMessageBox
+from qgis.PyQt.QtWidgets import QStyle
+from qgis.PyQt.QtGui     import QDesktopServices
+from qgis.PyQt.QtCore    import QUrl
 
 # Python
 from math    import isnan
@@ -83,6 +86,22 @@ class PluginDialog(QDialog, FORM_CLASS):
         self.targetLayer.setFilters(QgsMapLayerProxyModel.Filter.PointLayer)
         self.targetLayer.setShowCrs(True)
 
+        # Use icon for remove last field
+        pixmapi = getattr(QStyle, 'SP_ArrowLeft')
+        self.remSourceField.setText('')
+        self.remSourceField.setIcon(self.style().standardIcon(pixmapi))
+        self.remOutField.setText('')
+        self.remOutField.setIcon(self.style().standardIcon(pixmapi))
+
+        # Use icon for help link
+        pixmapi = getattr(QStyle, 'SP_TitleBarContextHelpButton')
+        self.helpButton.setText('')
+        self.helpButton.setIcon(self.style().standardIcon(pixmapi))
+        self.readme_path = "https://github.com/tetrakai1/GetFeats"
+        self.helpButton.setToolTip(self.readme_path)
+        self.helpButton.setStyleSheet("QPushButton {background-color : #b7b0ff;}"
+                                      "QToolTip {background-color: #53585a;}")
+
         # Add link to custom_prep directory
         fpath    = os.path.join(os.path.dirname(__file__), 'custom_prep')
         path_str = '- <a href ="file:///%s"><span style="color:lightskyblue;">Link to Custom Prep Directory</span></a>'%(fpath)
@@ -124,6 +143,9 @@ class PluginDialog(QDialog, FORM_CLASS):
         ###################
         # Set up the dialog pages
         self.pageMenu.currentRowChanged['int'].connect(self.stackedWidget.setCurrentIndex)
+
+        # Link to github repo with readme
+        self.helpButton.clicked.connect(lambda: QDesktopServices.openUrl(QUrl(self.readme_path)))
 
         # Update the field comboboxes and connect the add/remove buttons
         self.sourceLayer.currentIndexChanged.connect(self.update_source_field_box)
