@@ -133,9 +133,6 @@ class PluginDialog(QDialog, FORM_CLASS):
         self.remSourceField.clicked.connect(lambda: self.remove_last_fld(self.sourceFields))
         self.remOutField.clicked.connect(lambda: self.remove_last_fld(self.outputFields))
 
-        # Update the log font size
-        self.logSpinBox.valueChanged.connect(self.set_log_font)
-
         # Update Max Distance spinbox
         self.maxDistance.valueChanged.connect(self.update_nnNotes)
 
@@ -146,6 +143,7 @@ class PluginDialog(QDialog, FORM_CLASS):
         self.fsm.directoryLoaded.connect(self.on_custom_prep_dir_loaded)
 
         # Update table column names based on output fields in config
+        self.sourceFields.textChanged.connect(self.update_outfields)
         self.outputFields.textChanged.connect(self.update_outfields)
 
         # Update the data table font size
@@ -158,6 +156,9 @@ class PluginDialog(QDialog, FORM_CLASS):
         # Save only custom prep script choice
         self.saveCustomPrep.clicked.connect(lambda: self.save_custom_prep())
 
+        # Update the log font size
+        self.logSpinBox.valueChanged.connect(self.set_log_font)
+
         # Connect the log buttons
         self.clearLog.clicked.connect(self.clear_log)
         self.saveLog.clicked.connect(self.save_log)
@@ -169,60 +170,42 @@ class PluginDialog(QDialog, FORM_CLASS):
         self.pb_close.clicked.connect(lambda: self.on_close())
 
 
-    ###############
-    ### Methods ###
-    ###############  
-    def on_custom_prep_dir_loaded(self, directory):
-        parentIndex = self.fsm.index(directory)
-        fnames = [self.fsm.index(i, 0, parentIndex).data() for i in range(self.fsm.rowCount(parentIndex))]
-        if len(set(fnames)) == len(fnames) and fnames:
-            self.customPrepFile.setEnabled(True)
-            self.customPrep.setEnabled(True)
-            self.saveCustomPrep.setEnabled(True)
-            self.customPrep.setText('Use Custom Prep')
-        else:
-            self.customPrepFile.setEnabled(False)
-            self.customPrep.setChecked(False)
-            self.customPrep.setEnabled(False)
-            self.saveCustomPrep.setEnabled(False)
-            self.customPrep.setText('Use Custom Prep (Disabled: Check directory for valid .py files)')
+    ################
+    ### Settings ###
+    ################
+    def get_user_folder(self):
+        path = abspath(os.path.join(self.qapp.qgisSettingsDirPath(), 'GetFeats'))
+        if not QDir(path).exists():
+            QDir().mkdir(path)
+    
+        return path
 
-        last_fname = self.CUSTOM_PREP_FILE
-        if last_fname in fnames:
-            idx = fnames.index(last_fname)
-            self.customPrepFile.setCurrentIndex(idx)
-
-    def set_table_font(self):
-        font_size = self.fontSpinBox.value()
-        self.tableView.setFont(QFont("Ubuntu", font_size))
-
-    def set_log_font(self):
-        font_size = self.logSpinBox.value()
-        self.copyPasteLog.setFont(QFont("Ubuntu", font_size))
-
-    def show_menu(self):
-        if self.showMenu.isChecked():
-            self.pageMenu.setVisible(True)
-            self.showMenu.setText(">>>") 
-        else:
-            self.pageMenu.setVisible(False)
-            self.showMenu.setText("<<<")
+    def save_settings(self):
+        if self.chk.check_dialog_lyrs_exist(self):
+            TARGET_LYR_NAME = self.targetLayer.currentLayer().name()
+            SOURCE_LYR_NAME = self.sourceLayer.currentLayer().name()
+            source_lyr = self.chk.check_lyr_valid(SOURCE_LYR_NAME)
+            target_lyr = self.chk.check_lyr_valid(TARGET_LYR_NAME)
+            if source_lyr and target_lyr:
+                s = QgsSettings()
+                s.setValue("GetFeats/sourceLayer",    self.sourceLayer.currentLayer().name())
+                s.setValue("GetFeats/targetLayer",    self.targetLayer.currentLayer().name())
+                s.setValue("GetFeats/sourceFields",   self.sourceFields.text())
+                s.setValue("GetFeats/outputFields",   self.outputFields.text())
+                s.setValue("GetFeats/maxDistance",    self.maxDistance.value())
+                s.setValue("GetFeats/nNeighbors",     self.nNeighbors.value())
+                s.setValue("GetFeats/customPrep",     self.customPrep.isChecked())
+                s.setValue("GetFeats/customPrepFile", self.customPrepFile.currentText())
+                s.setValue("GetFeats/selectFeats",    self.customPrep.isChecked())
+                s.setValue("GetFeats/fontSpinBox",    self.fontSpinBox.value())
+                s.setValue("GetFeats/logSpinBox",     self.logSpinBox.value())
+    
+                self.msg.pushInfo('GetFeats:', 'Settings Saved')
 
 
-    def contextMenuEvent(self, event):
-        page_flag   = self.stackedWidget.currentIndex() == 2
-        active_flag = self.enableCopyPaste.isChecked() and self.activatePlugin.isChecked()
-        if not active_flag and page_flag and self.selection_model.selection().indexes():
-            for i in self.selection_model.selection().indexes():
-                row, column = i.row(), i.column()
-            menu = QMenu()
-            copyAction = menu.addAction("Copy Selected Cell")
-            action = menu.exec(self.mapToGlobal(event.pos()))
-            if action == copyAction:
-                val = self.tableView.model().item(row, column).text()
-                self.qapp.clipboard().setText(val)
-
-
+    ###################
+    ### Config Page ###
+    ################### 
     def update_source_field_box(self):
         self.sourceFieldBox.clear()
         if self.chk.check_dialog_lyrs_exist(self, warn_nolyr = False):
@@ -255,68 +238,11 @@ class PluginDialog(QDialog, FORM_CLASS):
         newtxt = oldtxt.rpartition(',')[0]
         flds.setText(newtxt)
 
-
     def extract_sourcefields(self):
         return [x.strip() for x in self.sourceFields.text().split(',')]
 
     def extract_outfields(self):
         return [x.strip() for x in self.outputFields.text().split(',')]
-
-    def update_outfields(self):
-        self.model.setHorizontalHeaderLabels(self.extract_outfields())
-
-    def clear_table(self, OUT_FIELDS):
-        self.model.setRowCount(0)
-        self.model.setColumnCount(0)
-        self.model.setHorizontalHeaderLabels(OUT_FIELDS)
-
-    def update_table(self, OUT_FIELDS, features):
-        self.clear_table(OUT_FIELDS)
-        for feat in features:
-            self.model.appendRow([QStandardItem(str(x)) for x in feat.attributes()])
-
-    def save_settings(self):
-        if self.chk.check_dialog_lyrs_exist(self):
-            TARGET_LYR_NAME = self.targetLayer.currentLayer().name()
-            SOURCE_LYR_NAME = self.sourceLayer.currentLayer().name()
-            source_lyr = self.chk.check_lyr_valid(SOURCE_LYR_NAME)
-            target_lyr = self.chk.check_lyr_valid(TARGET_LYR_NAME)
-            if source_lyr and target_lyr:
-                s = QgsSettings()
-                s.setValue("GetFeats/sourceLayer",    self.sourceLayer.currentLayer().name())
-                s.setValue("GetFeats/targetLayer",    self.targetLayer.currentLayer().name())
-                s.setValue("GetFeats/sourceFields",   self.sourceFields.text())
-                s.setValue("GetFeats/outputFields",   self.outputFields.text())
-                s.setValue("GetFeats/maxDistance",    self.maxDistance.value())
-                s.setValue("GetFeats/nNeighbors",     self.nNeighbors.value())
-                s.setValue("GetFeats/customPrep",     self.customPrep.isChecked())
-                s.setValue("GetFeats/customPrepFile", self.customPrepFile.currentText())
-                s.setValue("GetFeats/selectFeats",    self.customPrep.isChecked())
-                s.setValue("GetFeats/fontSpinBox",    self.fontSpinBox.value())
-                s.setValue("GetFeats/logSpinBox",     self.logSpinBox.value())
-    
-                self.msg.pushInfo('GetFeats:', 'Settings Saved')
-
-    def save_custom_prep(self):
-        s = QgsSettings()
-        s.setValue("GetFeats/customPrepFile", self.customPrepFile.currentText())
-        self.msg.pushInfo('GetFeats:', 'Custom Prep Saved')
-
-    def update_table_panel_lbls(self):
-        if self.activatePlugin.isChecked():
-            self.pluginActiveLabel.setText("Active")
-            self.pluginActiveLabel.setStyleSheet("QLabel { font: bold; color : #b7b0ff; }")
-        else:
-            self.pluginActiveLabel.setText("Inactive")
-            self.pluginActiveLabel.setStyleSheet("QLabel { color : #777; }")
-    
-        if self.enableCopyPaste.isChecked() and self.activatePlugin.isChecked():
-            self.copyPasteActiveLabel.setText("Active")
-            self.copyPasteActiveLabel.setStyleSheet("QLabel { font: bold; color : #b7b0ff; }")
-        else:
-            self.copyPasteActiveLabel.setText("Inactive")
-            self.copyPasteActiveLabel.setStyleSheet("QLabel { color : #777; }")
-
 
     def update_nnNotes(self):
         if self.activatePlugin.isChecked() and self.chk.check_dialog_lyrs_exist(self):
@@ -349,12 +275,99 @@ class PluginDialog(QDialog, FORM_CLASS):
                     self.nnNotes.append(pre_blue + ' - Lon' + suf + ': ' + pre_bold + str(deg_err[1]) + suf + ' m')
 
 
-    def get_user_folder(self):
-        path = abspath(os.path.join(self.qapp.qgisSettingsDirPath(), 'GetFeats'))
-        if not QDir(path).exists():
-            QDir().mkdir(path)
+    #####################
+    ### Advanced Page ###
+    ##################### 
+    def save_custom_prep(self):
+        s = QgsSettings()
+        s.setValue("GetFeats/customPrepFile", self.customPrepFile.currentText())
+        self.msg.pushInfo('GetFeats:', 'Custom Prep Saved')
+
+    def on_custom_prep_dir_loaded(self, directory):
+        parentIndex = self.fsm.index(directory)
+        fnames = [self.fsm.index(i, 0, parentIndex).data() for i in range(self.fsm.rowCount(parentIndex))]
+        if len(set(fnames)) == len(fnames) and fnames:
+            self.customPrepFile.setEnabled(True)
+            self.customPrep.setEnabled(True)
+            self.saveCustomPrep.setEnabled(True)
+            self.customPrep.setText('Use Custom Prep')
+        else:
+            self.customPrepFile.setEnabled(False)
+            self.customPrep.setChecked(False)
+            self.customPrep.setEnabled(False)
+            self.saveCustomPrep.setEnabled(False)
+            self.customPrep.setText('Use Custom Prep (Disabled: Check directory for valid .py files)')
+
+        last_fname = self.CUSTOM_PREP_FILE
+        if last_fname in fnames:
+            idx = fnames.index(last_fname)
+            self.customPrepFile.setCurrentIndex(idx)
+
+
+    ##################
+    ### Table Page ###
+    ################## 
+    def set_table_font(self):
+        font_size = self.fontSpinBox.value()
+        self.tableView.setFont(QFont("Ubuntu", font_size))
+
+    def show_menu(self):
+        if self.showMenu.isChecked():
+            self.pageMenu.setVisible(True)
+            self.showMenu.setText(">>>") 
+        else:
+            self.pageMenu.setVisible(False)
+            self.showMenu.setText("<<<")
+
+    def contextMenuEvent(self, event):
+        page_flag   = self.stackedWidget.currentIndex() == 2
+        active_flag = self.enableCopyPaste.isChecked() and self.activatePlugin.isChecked()
+        if not active_flag and page_flag and self.selection_model.selection().indexes():
+            for i in self.selection_model.selection().indexes():
+                row, column = i.row(), i.column()
+            menu = QMenu()
+            copyAction = menu.addAction("Copy Selected Cell")
+            action = menu.exec(self.mapToGlobal(event.pos()))
+            if action == copyAction:
+                val = self.tableView.model().item(row, column).text()
+                self.qapp.clipboard().setText(val)
+
+    def clear_table(self, OUT_FIELDS):
+        self.model.setRowCount(0)
+        self.model.setColumnCount(0)
+        self.model.setHorizontalHeaderLabels(OUT_FIELDS)
+
+    def update_outfields(self):
+        OUT_FIELDS = self.extract_outfields()
+        self.clear_table(OUT_FIELDS)
+
+    def update_table(self, OUT_FIELDS, features):
+        self.clear_table(OUT_FIELDS)
+        for feat in features:
+            self.model.appendRow([QStandardItem(str(x)) for x in feat.attributes()])
+
+    def update_table_panel_lbls(self):
+        if self.activatePlugin.isChecked():
+            self.pluginActiveLabel.setText("Active")
+            self.pluginActiveLabel.setStyleSheet("QLabel { font: bold; color : #b7b0ff; }")
+        else:
+            self.pluginActiveLabel.setText("Inactive")
+            self.pluginActiveLabel.setStyleSheet("QLabel { color : #777; }")
     
-        return path
+        if self.enableCopyPaste.isChecked() and self.activatePlugin.isChecked():
+            self.copyPasteActiveLabel.setText("Active")
+            self.copyPasteActiveLabel.setStyleSheet("QLabel { font: bold; color : #b7b0ff; }")
+        else:
+            self.copyPasteActiveLabel.setText("Inactive")
+            self.copyPasteActiveLabel.setStyleSheet("QLabel { color : #777; }")
+
+
+    ################
+    ### Log Page ###
+    ################
+    def set_log_font(self):
+        font_size = self.logSpinBox.value()
+        self.copyPasteLog.setFont(QFont("Ubuntu", font_size))
 
     def clear_log(self):
         conf = QMessageBox.question(self, "Confirmation", 
@@ -408,7 +421,9 @@ class PluginDialog(QDialog, FORM_CLASS):
                 self.msg.pushInfo('GetFeats:', 'No log file found')
 
 
-
+    ####################
+    ### Close Dialog ###
+    #################### 
     def on_close(self):
         self.activatePlugin.setChecked(False)
         self.close()
