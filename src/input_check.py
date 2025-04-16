@@ -46,6 +46,13 @@ class InputCheck:
 
         return res
 
+    def check_same_length_src_out(self, SRC_FIELDS0, OUT_FIELDS):
+        flag = len(SRC_FIELDS0) == len(OUT_FIELDS)
+        if not flag:
+            self.msg.pushInfo('GetFeats:', 'Source and Output fields must have same length') 
+
+        return flag
+
     def check_dialog_lyrs_exist(self, dlg, warn_nolyr = True):
         target_present = dlg.targetLayer.currentLayer()
         src_present    = dlg.sourceLayer.currentLayer()

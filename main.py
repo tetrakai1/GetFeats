@@ -113,7 +113,7 @@ class GetFeatsPlugin:
                 NEIGHBORS       = self.dlg.nNeighbors.value()
                 USE_CUSTOM_PREP = self.dlg.customPrep.isChecked()
 
-                if len(SRC_FIELDS0) == len(OUT_FIELDS):
+                if self.chk.check_same_length_src_out(SRC_FIELDS0, OUT_FIELDS):
                     source_lyr = self.chk.check_lyr_valid(SOURCE_LYR_NAME)
                     target_lyr = self.chk.check_lyr_valid(TARGET_LYR_NAME)
                     out_flag   = self.chk.check_dup_outfields(OUT_FIELDS)
@@ -127,9 +127,7 @@ class GetFeatsPlugin:
                                      SRC_FIELDS, OUT_FIELDS, FIELDMAP, 
                                      MAX_DISTANCE, NEIGHBORS, USE_CUSTOM_PREP)
                         else:
-                            self.msg.pushInfo('GetFeats:', 'No Source Fields found in ' + SOURCE_LYR_NAME)
-                else:
-                    self.msg.pushInfo('GetFeats:', 'Source and Output fields must have same length')    
+                            self.msg.pushInfo('GetFeats:', 'No Source Fields found in ' + SOURCE_LYR_NAME)  
 
 
     def run(self):
