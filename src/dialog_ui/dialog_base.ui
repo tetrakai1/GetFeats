@@ -80,7 +80,7 @@
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page">
       <property name="sizePolicy">
@@ -1429,7 +1429,13 @@ p, li { white-space: pre-wrap; }
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QComboBox" name="customPrepFile"/>
+                    <widget class="QComboBox" name="customPrepFile">
+                     <property name="font">
+                      <font>
+                       <pointsize>10</pointsize>
+                      </font>
+                     </property>
+                    </widget>
                    </item>
                    <item>
                     <widget class="QPushButton" name="saveCustomPrep">
