@@ -405,11 +405,11 @@ class PluginDialog(QDialog, FORM_CLASS):
         fpath   = os.path.join(dirpath, 'qcplog.txt')
         # Only if there is something in the TextEdit
         if str(self.copyPasteLog.toPlainText()) != '':
-            conf    = QMessageBox.question(self, "Confirmation", 
-                                           "This action will clear the current log window. Continue?", 
-                                           QMessageBox.Yes | QMessageBox.No)
+            conf = QMessageBox.question(self, "Confirmation", 
+                                        "This action will clear the current log window. Continue?", 
+                                        QMessageBox.Yes | QMessageBox.No)
         else:
-            conf   = QMessageBox.Yes
+            conf = QMessageBox.Yes
 
         if conf == QMessageBox.Yes:
             if os.path.isfile(fpath):
