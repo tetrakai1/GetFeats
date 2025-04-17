@@ -15,7 +15,13 @@ QGIS plugin - A semi-automation tool. Creates an auto-updating table of feature 
   - https://github.com/andrewheiss/ME-GIS
 
 # Installation
-## QGIS Plugin Directory
+## Preferred
+### QGIS Plugin Manager
+  1. Open QGIS -> Select `Plugins` from the menu bar -> Select `Manage and Install Plugins` -> Select the `All` panel -> Search "GetFeats" -> Click `Install Plugin`
+  2. Enable the plugin: Choose the `Installed` panel of `Manage and Install Plugins` and ensure `GetFeats` is checked.
+
+## Alternate methods
+### QGIS Plugin Directory
 The plugin directory can be found from the QGIS menu bar:
 - `Settings` -> `User profiles` -> `Open active profile folder`
 -  Defaults (replace *USER* with your username):
@@ -49,6 +55,7 @@ The plugin directory can be found from the QGIS menu bar:
          - Must have *Line* geometry.
        - The **Target** layer
          - A point from this layer is used to select nearby features in the **Source** layer.
+         - Must have a *fid* field (this will exist by default if the layer is saved as a geopackage).
          - Must have a *Point* geometry.
    - **Field Name Map**
      - Here the **Source** layer fields are mapped to the **Output** table fields.
