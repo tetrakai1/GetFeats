@@ -31,7 +31,7 @@ The plugin directory can be found from the QGIS menu bar:
     1. Select `Plugins` from the menu bar -> `Manage and Install Plugins` -> `Installed` panel
     2. Ensure `GetFeats` is checked.
 
-## ZIP Download
+### ZIP Download
 - Click the `Code` button and select `Download ZIP`. Then follow one of the below methods:
   - Method 1
     1. Extract the contents to a directory named `GetFeats` in the QGIS plugin directory.
@@ -39,7 +39,7 @@ The plugin directory can be found from the QGIS menu bar:
     1. Open QGIS -> Select `Plugins` from the menu bar -> Select `Manage and Install Plugins` -> Select the `Install from ZIP` panel
     2. Choose the downloaded ZIP archive using the file dialog.
 
-## Git
+### Git
 1. Navigate to the QGIS plugin directory, then run:
     - `git clone git@github.com:tetrakai1/GetFeats.git`
 
