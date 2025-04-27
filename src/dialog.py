@@ -239,7 +239,8 @@ class PluginDialog(QDialog, FORM_CLASS):
     def add_source_field(self):
         oldtxt = self.sourceFields.text()
         newval = self.sourceFieldBox.currentField()
-        self.sourceFields.setText(oldtxt + ', ' + newval)
+        comma  = '' if oldtxt == '' else ', '
+        self.sourceFields.setText(oldtxt + comma + newval)
 
 
     def update_target_field_box(self):
@@ -253,7 +254,8 @@ class PluginDialog(QDialog, FORM_CLASS):
     def add_target_field(self):
         oldtxt = self.outputFields.text()
         newval = self.targetFieldBox.currentField()
-        self.outputFields.setText(oldtxt + ', ' + newval)
+        comma  = '' if oldtxt == '' else ', '
+        self.outputFields.setText(oldtxt + comma + newval)
 
     def remove_last_fld(self, flds):
         oldtxt = flds.text()
@@ -272,7 +274,7 @@ class PluginDialog(QDialog, FORM_CLASS):
             source_lyr      = self.chk.check_lyr_valid(SOURCE_LYR_NAME)
             if source_lyr:
                 source_lyr_crs = source_lyr.crs()
-                src_units = QgsUnitTypes.toString(source_lyr_crs.mapUnits())
+                src_units      = QgsUnitTypes.toString(source_lyr_crs.mapUnits())
                 if src_units == 'meters':
                     self.nnNotes.setText('No unit conversion required')
                 else:
@@ -288,7 +290,7 @@ class PluginDialog(QDialog, FORM_CLASS):
                     else:
                         lat = max([abs(source_lyr.extent().yMinimum()), 
                                    abs(source_lyr.extent().yMaximum())])
-                    deg_err  = est_degree_error(lat, max_dist)
+                    deg_err = est_degree_error(lat, max_dist)
                     deg_msg = ' - Consider reprojecting ' + pre_bold + SOURCE_LYR_NAME + suf + ' to a linear coordinate system'
                     self.nnNotes.append(pre_redi + deg_msg + suf)
                     self.nnNotes.append('')
