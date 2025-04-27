@@ -144,4 +144,12 @@ The plugin directory can be found from the QGIS menu bar:
       - **Save Log (Overwrite)** overwrites the existing log file.
       - **Save Log (Append)** appends to the end of the existing log file.
 
+### Experimental Settings
+  
+  <img src="img/readme/experimental_page.png" align="right" width="400">
+
+  - **Allow all source geometries**
+    - When checked **Source** layers can have any geometry.
+      - Default (unchecked) is limited to only *Line* geometry.
+
 <br clear="right"/>
