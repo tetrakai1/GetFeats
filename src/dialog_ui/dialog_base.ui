@@ -30,13 +30,13 @@
      </property>
      <property name="minimumSize">
       <size>
-       <width>70</width>
+       <width>90</width>
        <height>0</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>70</width>
+       <width>90</width>
        <height>5000</height>
       </size>
      </property>
@@ -60,6 +60,11 @@
        <string>Log</string>
       </property>
      </item>
+     <item>
+      <property name="text">
+       <string>Experimental</string>
+      </property>
+     </item>
     </widget>
    </item>
    <item>
@@ -80,7 +85,7 @@
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page">
       <property name="sizePolicy">
@@ -1004,7 +1009,7 @@
                            <number>1</number>
                           </property>
                           <property name="maximum">
-                           <number>100000</number>
+                           <number>1000000</number>
                           </property>
                           <property name="value">
                            <number>500</number>
@@ -1942,6 +1947,66 @@ p, li { white-space: pre-wrap; }
              </item>
             </layout>
            </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_5">
+      <layout class="QVBoxLayout" name="verticalLayout_13">
+       <item>
+        <widget class="QFrame" name="frame_27">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
+         </property>
+         <property name="lineWidth">
+          <number>0</number>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_12">
+          <item>
+           <widget class="QCheckBox" name="allowAllSourceGeoms">
+            <property name="text">
+             <string>Allow all source geometries</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff774a;&quot;&gt;- Warning: Experimental Settings have not been tested&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_10">
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff774a;&quot;&gt;  - May result in Python errors, QGIS crashes, or other unexpected behavior&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_11">
+            <property name="text">
+             <string>- Disabled on startup, not saved to settings</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </widget>

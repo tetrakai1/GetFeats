@@ -186,6 +186,9 @@ class PluginDialog(QDialog, FORM_CLASS):
         self.saveLog.clicked.connect(self.save_log)
         self.appendLog.clicked.connect(self.append_log)
         self.loadLog.clicked.connect(self.load_log)
+
+        # Experimental settings
+        self.allowAllSourceGeoms.clicked.connect(self.allow_all_src_geoms)
         
         # Connect the Menu/Done buttons
         self.showMenu.clicked.connect(self.show_menu)
@@ -443,6 +446,21 @@ class PluginDialog(QDialog, FORM_CLASS):
                     self.msg.pushInfo('GetFeats:', 'Log loaded from file')
             else:
                 self.msg.pushInfo('GetFeats:', 'No log file found')
+
+    ####################
+    ### Experimental ###
+    ####################
+
+    def allow_all_src_geoms(self):
+        self.targetLayer
+        if self.allowAllSourceGeoms.isChecked():
+            self.sourceLayer.setFilters(QgsMapLayerProxyModel.Filter.HasGeometry)
+            self.sourceLayer.setExceptedLayerList([self.targetLayer.currentLayer()])
+            self.sourceLayer.setShowCrs(True)
+        else:
+            self.sourceLayer.setFilters(QgsMapLayerProxyModel.Filter.LineLayer)
+            self.sourceLayer.setExceptedLayerList([self.targetLayer.currentLayer()])
+            self.sourceLayer.setShowCrs(True)
 
 
     ####################
