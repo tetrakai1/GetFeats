@@ -145,8 +145,8 @@ class GetFeatsPlugin:
         target_lyr = QgsProject.instance().mapLayersByName(self.dlg.TARGET_LYR_NAME)
         if source_lyr and target_lyr:
         
-            # Init Combobox layers
             if self.is_first_run:
+                # Init Combobox layers
                 self.dlg.sourceLayer.setLayer(source_lyr[0])
                 self.dlg.targetLayer.setLayer(target_lyr[0])
 

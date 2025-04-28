@@ -83,7 +83,7 @@ class InputCheck:
         sel_feats    = target_lyr.selectedFeatures()
 
         # If it is point layer, this will select only the first feature.
-        # Otherwise it is skipped (tested only polygon)
+        # Otherwise it is skipped when two points with same geom selected (tested only polygon)
         if target_lyr.wkbType() == QgsWkbTypes.Point:
             feat_coords  = [x.geometry().asPoint() for x in sel_feats]
         else:
