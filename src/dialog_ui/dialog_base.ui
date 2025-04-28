@@ -85,7 +85,7 @@
       <number>0</number>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="page">
       <property name="sizePolicy">
@@ -1995,6 +1995,13 @@ p, li { white-space: pre-wrap; }
            <widget class="QCheckBox" name="allowAllSourceGeoms">
             <property name="text">
              <string>Allow all source geometries</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="allowAllTargetGeoms">
+            <property name="text">
+             <string>Allow all target geometries</string>
             </property>
            </widget>
           </item>

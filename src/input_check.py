@@ -1,6 +1,7 @@
 # QGIS Core
 from qgis.core import QgsApplication
 from qgis.core import QgsProject
+from qgis.core import QgsWkbTypes
 
 # QGIS Utils
 from qgis.utils import iface
@@ -80,8 +81,15 @@ class InputCheck:
     def check_valid_feature(self, target_lyr, warn_nofeat = False):
         feat_count   = target_lyr.selectedFeatureCount()
         sel_feats    = target_lyr.selectedFeatures()
-        pt_coords    = [x.geometry().asPoint() for x in sel_feats]
-        unique_geoms = len(set(pt_coords))
+
+        # If it is point layer, this will select only the first feature.
+        # Otherwise it is skipped (tested only polygon)
+        if target_lyr.wkbType() == QgsWkbTypes.Point:
+            feat_coords  = [x.geometry().asPoint() for x in sel_feats]
+        else:
+            feat_coords  = [x.geometry() for x in sel_feats]
+
+        unique_geoms = len(set(feat_coords))
     
         target_ft = []
         if 'fid' not in target_lyr.fields().names():
@@ -108,7 +116,7 @@ class InputCheck:
                     self.msg.pushInfo('GetFeats:', 'Selected only the first feature (fid: ' + str(fid) + ')')
     
         elif unique_geoms > 1:
-                self.msg.pushInfo('GetFeats:', 'Skipped. Points at multiple locations selected')
+                self.msg.pushInfo('GetFeats:', 'Skipped. Features at multiple locations selected')
     
         return target_ft
 

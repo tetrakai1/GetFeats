@@ -148,8 +148,6 @@ class PluginDialog(QDialog, FORM_CLASS):
         self.helpButton.clicked.connect(lambda: QDesktopServices.openUrl(QUrl(self.readme_path)))
 
         # Update the field comboboxes and connect the add/remove buttons
-        self.sourceLayer.currentIndexChanged.connect(self.update_source_field_box)
-        self.targetLayer.currentIndexChanged.connect(self.update_target_field_box)
         self.addSourceField.clicked.connect(self.add_source_field)
         self.addTargetField.clicked.connect(self.add_target_field)
         self.remSourceField.clicked.connect(lambda: self.remove_last_fld(self.sourceFields))
@@ -189,6 +187,7 @@ class PluginDialog(QDialog, FORM_CLASS):
 
         # Experimental settings
         self.allowAllSourceGeoms.clicked.connect(self.allow_all_src_geoms)
+        self.allowAllTargetGeoms.clicked.connect(self.allow_all_targ_geoms)
         
         # Connect the Menu/Done buttons
         self.showMenu.clicked.connect(self.show_menu)
@@ -450,9 +449,7 @@ class PluginDialog(QDialog, FORM_CLASS):
     ####################
     ### Experimental ###
     ####################
-
     def allow_all_src_geoms(self):
-        self.targetLayer
         if self.allowAllSourceGeoms.isChecked():
             self.sourceLayer.setFilters(QgsMapLayerProxyModel.Filter.HasGeometry)
             self.sourceLayer.setExceptedLayerList([self.targetLayer.currentLayer()])
@@ -461,6 +458,16 @@ class PluginDialog(QDialog, FORM_CLASS):
             self.sourceLayer.setFilters(QgsMapLayerProxyModel.Filter.LineLayer)
             self.sourceLayer.setExceptedLayerList([self.targetLayer.currentLayer()])
             self.sourceLayer.setShowCrs(True)
+
+    def allow_all_targ_geoms(self):
+        if self.allowAllTargetGeoms.isChecked():
+            self.targetLayer.setFilters(QgsMapLayerProxyModel.Filter.HasGeometry)
+            self.targetLayer.setExceptedLayerList([self.sourceLayer.currentLayer()])
+            self.targetLayer.setShowCrs(True)
+        else:
+            self.targetLayer.setFilters(QgsMapLayerProxyModel.Filter.PointLayer)
+            self.targetLayer.setExceptedLayerList([self.sourceLayer.currentLayer()])
+            self.targetLayer.setShowCrs(True)
 
 
     ####################

@@ -75,6 +75,11 @@ class GetFeatsPlugin:
 
     def check_plugin_enabled(self):
         self.chk.check_dup_layernames(self.dlg)
+        self.dlg.update_source_field_box()
+        self.dlg.update_target_field_box()
+        self.dlg.sourceLayer.setExceptedLayerList([self.dlg.targetLayer.currentLayer()])
+        self.dlg.targetLayer.setExceptedLayerList([self.dlg.sourceLayer.currentLayer()])
+
         if self.dlg.activatePlugin.isChecked():
             self.set_selchanged_conn()
             self.build_src_spatial_index()
@@ -88,6 +93,10 @@ class GetFeatsPlugin:
                 self.spatial_idx = QgsSpatialIndex(source_lyr.getFeatures(), 
                                    flags = QgsSpatialIndex.Flag.FlagStoreFeatureGeometries)
                 self.dlg.update_nnNotes()
+
+                if SOURCE_LYR_NAME in self.target_lyr_history:
+                    self.msg.pushInfo('GetFeats:', 'Warning: ' + SOURCE_LYR_NAME + 
+                                      ' previously used as Target Layer. Consider restart to avoid lag.') 
 
 
     def run_getfeats(self, selected, deselected):
