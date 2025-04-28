@@ -1994,14 +1994,14 @@ p, li { white-space: pre-wrap; }
           <item>
            <widget class="QCheckBox" name="allowAllSourceGeoms">
             <property name="text">
-             <string>Allow all source geometries</string>
+             <string>Allow all Source geometries</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QCheckBox" name="allowAllTargetGeoms">
             <property name="text">
-             <string>Allow all target geometries</string>
+             <string>Allow all Target geometries</string>
             </property>
            </widget>
           </item>
