@@ -151,7 +151,6 @@ The plugin directory can be found from the QGIS menu bar:
   - **Allow all Source geometries**
     - When checked **Source** layers can have any geometry.
       - Default (unchecked) is limited to only *Line* geometry.
-
   - **Allow all Target geometries**
     - When checked **Target** layers can have any geometry.
       - Default (unchecked) is limited to only *Point* geometry.
