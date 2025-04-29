@@ -159,35 +159,39 @@ The plugin directory can be found from the QGIS menu bar:
 
 ## Tutorial
 ### Configuration
+- Set up the plugin.
 
-  <img src="img/readme/tutorial_config.gif" align="right" width="400">
+  <img src="img/readme/tutorial_config.gif" align="center" width="750">
 
-1. Open the tutorial QGIS project: `Arda/data/arda.qgs`.
-2. Select the **GetFeats** plugin.
-3. Ensure correct **Source** and **Target** layers are selected.
-  - Source: `Roads` 
-  - Target: `target_layer`
-4. Ensure **Field Name Map** is configured correctly.
-  - Source: `NULL, name, type`
-  - Output: `Heading, Name, Type`
-5. Set **Max Distance** to 50 km.
-  - Max Distance: `50000`
-6. On the **Advanced** page enable **Quick Copy/Paste** and **Use Custom Prep**.
-  - Ensure that `custom_prep_lotr.py` is the selected script.
-    - Otherwise change the selection, save, and restart QGIS.
-    - This fills the *Heading* field and formats the road name text.
-7. Select the `Config` page.
-  - Check `Enable Plugin`.
-  - Optional: **Save Settings**.
-8. Select the **Table** page.
-  - Both **Plugin** and **Copy/Paste** should be shown as *Active* on the bottom.
+**Steps**
+  1. Open the tutorial QGIS project: `Arda/data/arda.qgs`.
+  2. Select the **GetFeats** plugin.
+  3. Ensure correct **Source** and **Target** layers are selected.
+    - Source: `Roads` 
+    - Target: `target_layer`
+  4. Ensure **Field Name Map** is configured correctly.
+    - Source: `NULL, name, type`
+    - Output: `Heading, Name, Type`
+  5. Set **Max Distance** to 50 km.
+    - Max Distance: `50000`
+  6. On the **Advanced** page enable **Quick Copy/Paste** and **Use Custom Prep**.
+    - Ensure that `custom_prep_lotr.py` is the selected script.
+      - Otherwise change the selection, save, and restart QGIS.
+      - This fills the *Heading* field and formats the road name text.
+  7. Select the `Config` page.
+    - Check `Enable Plugin`.
+    - Optional: **Save Settings**.
+  8. Select the **Table** page.
+    - Both **Plugin** and **Copy/Paste** should be shown as *Active* on the bottom.
 
 ### Use the Plugin
+- Select and modify target feature attributes.
 
-  <img src="img/readme/tutorial_usage.gif" align="right" width="400">
+  <img src="img/readme/tutorial_usage.gif" align="center" width="750">
 
-1. Activate the QGIS selection tool.
-2. Ensure the **Target** layer is selected and in edit mode.
-3. Choose the first point.
-  - Choose any attribute values to copy into the selected feature of the **Target** layer.
-4. Repeat step **#3** for the second point.
+**Steps**
+  1. Activate the QGIS selection tool.
+  2. Ensure the **Target** layer is selected and in edit mode.
+  3. Choose the first point.
+     - Choose any attribute values to copy into the selected feature of the **Target** layer.
+  4. Repeat step **#3** for the second point.
