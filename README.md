@@ -167,22 +167,22 @@ The plugin directory can be found from the QGIS menu bar:
   1. Open the tutorial QGIS project: `Arda/data/arda.qgs`.
   2. Select the **GetFeats** plugin.
   3. Ensure correct **Source** and **Target** layers are selected.
-    - Source: `Roads` 
-    - Target: `target_layer`
+     - Source: `Roads` 
+     - Target: `target_layer`
   4. Ensure **Field Name Map** is configured correctly.
-    - Source: `NULL, name, type`
-    - Output: `Heading, Name, Type`
+     - Source: `NULL, name, type`
+     - Output: `Heading, Name, Type`
   5. Set **Max Distance** to 50 km.
-    - Max Distance: `50000`
+     - Max Distance: `50000`
   6. On the **Advanced** page enable **Quick Copy/Paste** and **Use Custom Prep**.
-    - Ensure that `custom_prep_lotr.py` is the selected script.
-      - Otherwise change the selection, save, and restart QGIS.
-      - This fills the *Heading* field and formats the road name text.
+     - Ensure that `custom_prep_lotr.py` is the selected script.
+       - Otherwise change the selection, save, and restart QGIS.
+       - This fills the *Heading* field and formats the road name text.
   7. Select the `Config` page.
-    - Check `Enable Plugin`.
-    - Optional: **Save Settings**.
+     - Check `Enable Plugin`.
+     - Optional: **Save Settings**.
   8. Select the **Table** page.
-    - Both **Plugin** and **Copy/Paste** should be shown as *Active* on the bottom.
+     - Both **Plugin** and **Copy/Paste** should be shown as *Active* on the bottom.
 
 ### Use the Plugin
 - Select and modify target feature attributes.
