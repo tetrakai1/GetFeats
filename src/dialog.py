@@ -244,7 +244,6 @@ class PluginDialog(QDialog, FORM_CLASS):
         comma  = '' if oldtxt == '' else ', '
         self.sourceFields.setText(oldtxt + comma + newval)
 
-
     def update_target_field_box(self):
         self.targetFieldBox.clear()
         if self.chk.check_dialog_lyrs_exist(self, warn_nolyr = False):

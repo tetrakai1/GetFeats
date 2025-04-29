@@ -32,8 +32,8 @@ def getfeats(obj, TARGET_LYR_NAME, SOURCE_LYR_NAME, SRC_FIELDS, OUT_FIELDS, FIEL
              MAX_DISTANCE, NEIGHBORS, USE_CUSTOM_PREP):
     target_lyr = QgsProject.instance().mapLayersByName(TARGET_LYR_NAME)[0]
     target_ft  = InputCheck.check_valid_feature(obj, target_lyr)
-    if target_ft:
 
+    if target_ft:
         # Find the nearest neighbors
         source_lyr     = QgsProject.instance().mapLayersByName(SOURCE_LYR_NAME)[0]
         source_lyr_crs = source_lyr.crs()
@@ -54,8 +54,7 @@ def getfeats(obj, TARGET_LYR_NAME, SOURCE_LYR_NAME, SRC_FIELDS, OUT_FIELDS, FIEL
             source_lyr.selectByIds(nns)
             obj.update_src_lyr_hist()
 
-
-        # Extract the deesignated output fields and put into new layer
+        # Extract the designated output fields and put into new layer
         # Need this ordered by distance, but getFeatures reorders by fid, so do it the slow way
         extracted_lyr = make_new_layer('extracted_lyr', OUT_FIELDS) 
         features = []

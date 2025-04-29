@@ -13,7 +13,6 @@ class InputCheck:
         self.msg   = self.iface.messageBar()
         self.qapp  = QgsApplication.instance()
 
-
     def check_dup_layernames(self, dlg):
         names = [layer.name() for layer in QgsProject.instance().mapLayers().values()]
         flag  = len(set(names)) == len(names)
@@ -32,7 +31,6 @@ class InputCheck:
             self.msg.pushInfo('GetFeats:', 'Cannot have duplicate Output fields')
 
         return flag
-
 
     def check_lyr_valid(self, lyr_name):
         lyrs  = QgsProject.instance().mapLayersByName(lyr_name)

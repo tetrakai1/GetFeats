@@ -34,7 +34,6 @@ class QuickCopyPaste:
             else:
                 self.msg.pushInfo('GetFeats:', 'Cannot modify a field named fid')
 
-
     def copycell(self, fld_name, selval):
         TARGET_LYR_NAME = self.dlg.targetLayer.currentLayer().name()
         active_lyr_flag = TARGET_LYR_NAME == self.iface.activeLayer().name()
@@ -73,7 +72,6 @@ class QuickCopyPaste:
                     self.dlg.copyPasteLog.append(logmsg)
                 else:
                     self.msg.pushInfo('GetFeats:', TARGET_LYR_NAME + ' has no matching field: ' + fld_name)
-
 
     def format_log(self, fld_name, fid, TARGET_LYR_NAME, oldval, selval, color_str):
         dt0      = QDateTime.currentDateTime().toString()
