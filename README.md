@@ -164,7 +164,9 @@ The plugin directory can be found from the QGIS menu bar:
   <img src="img/readme/tutorial_config.gif" align="center" width="750">
 
 **Steps**
-  1. Open the tutorial QGIS project: `Arda/data/arda.qgs`.
+  1. Open the tutorial QGIS project: `/tutorial/data/arda.qgs`.
+     - Find it in your [QGIS Plugin Directory](#qgis-plugin-directory).
+     - See the [Arda repo](https://github.com/bburns/Arda) for details and the original complete LOTR map.
   2. Select the **GetFeats** plugin.
   3. Ensure correct **Source** and **Target** layers are selected.
      - Source: `Roads` 
