@@ -22,7 +22,7 @@ from .input_check import InputCheck
 
 # This script can load from a variable filename
 try:
-    fname       = QgsSettings().value("GetFeats/customPrepFile", "custom_prep.py")
+    fname       = QgsSettings().value("GetFeats/customPrepFile", "custom_prep_lotr.py")
     module_path = os.path.join(os.path.dirname(__file__), 'custom_prep', fname)
     custom_prep = SourceFileLoader('custom_prep', module_path).load_module()
 except:
