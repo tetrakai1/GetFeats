@@ -160,7 +160,7 @@ The plugin directory can be found from the QGIS menu bar:
 ## Tutorial
 ### Configuration
 
-  <img src="img/readme/tutorial_config.png" align="right" width="400">
+  <img src="img/readme/tutorial_config.gif" align="right" width="400">
 
 1. Open the tutorial QGIS project: `Arda/data/arda.qgs`.
 2. Select the **GetFeats** plugin.
@@ -184,7 +184,7 @@ The plugin directory can be found from the QGIS menu bar:
 
 ### Use the Plugin
 
-  <img src="img/readme/tutorial_usage.png" align="right" width="400">
+  <img src="img/readme/tutorial_usage.gif" align="right" width="400">
 
 1. Activate the QGIS selection tool.
 2. Ensure the **Target** layer is selected and in edit mode.
