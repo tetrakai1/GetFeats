@@ -180,8 +180,8 @@ The plugin directory can be found from the QGIS menu bar:
      - Ensure that `custom_prep_lotr.py` is the selected script.
        - Otherwise change the selection, save, and restart QGIS.
        - This fills the *Heading* field and formats the road name text.
-  7. Select the `Config` page.
-     - Check `Enable Plugin`.
+  7. Select the **Config** page.
+     - Check **Enable Plugin**.
      - Optional: **Save Settings**.
   8. Select the **Table** page.
      - Both **Plugin** and **Copy/Paste** should be shown as *Active* on the bottom.
