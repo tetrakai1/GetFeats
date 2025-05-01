@@ -13,7 +13,7 @@ about=When a point is selected from a designated vector layer, a table is popula
 
   Check the readme in the github repository for further explanation.
 
-version=0.1.0
+version=0.2.0
 qgisMinimumVersion=3.40
 qgisMaximumVersion=3.99
 author=tetrakai1
