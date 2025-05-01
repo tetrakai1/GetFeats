@@ -34,10 +34,9 @@ tags=analysis, automation, vector, python
 # plugin_dependencies=False
 
 changelog=
-    0.1.0:
-        * First Release
     0.2.0:
         * Fixed bug where comma showed up when adding first field name on config page
         * Added experimental page with options to select any layer geometries
         * Added LOTR tutorial project
-
+    0.1.0:
+        * First Release
