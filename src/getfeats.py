@@ -13,8 +13,10 @@ from qgis.utils import iface
 
 # Python
 from importlib.machinery import SourceFileLoader
+from importlib.util import spec_from_file_location, module_from_spec
 import os
 import processing
+import sys
 
 # Plugin
 from .utils       import make_new_layer
@@ -22,11 +24,26 @@ from .input_check import InputCheck
 
 # This script can load from a variable filename
 try:
-    fname       = QgsSettings().value("GetFeats/customPrepFile", "custom_prep_lotr.py")
+    fname = QgsSettings().value("GetFeats/customPrepFile", "custom_prep_lotr.py")
     module_path = os.path.join(os.path.dirname(__file__), 'custom_prep', fname)
-    custom_prep = SourceFileLoader('custom_prep', module_path).load_module()
-except:
-    pass
+
+    # Use importlib.util for full compatibility and clarity
+    module_name = "custom_prep"
+    spec = spec_from_file_location(module_name, module_path)
+    if spec is not None:
+        custom_prep = module_from_spec(spec)
+        sys.modules[module_name] = custom_prep  # Optionally register in sys.modules
+        spec.loader.exec_module(custom_prep)
+    else:
+        custom_prep = None
+except Exception as e:
+    # It's best to at least print/log the exception for debugging
+    import traceback
+    print("Failed to load custom_prep:", e)
+    traceback.print_exc()
+    custom_prep = None
+
+
 
 def getfeats(obj, TARGET_LYR_NAME, SOURCE_LYR_NAME, SRC_FIELDS, OUT_FIELDS, FIELDMAP, 
              MAX_DISTANCE, NEIGHBORS, USE_CUSTOM_PREP):
